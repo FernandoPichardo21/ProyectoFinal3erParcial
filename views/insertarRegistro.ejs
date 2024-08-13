@@ -1,0 +1,32 @@
+<%- include("templates/encabezado")%>
+    <title>Insertar Registro</title>
+    <div class="page">
+        <div class="container">
+            <div class="left">
+                <div class="login">Insertar un nuevo registro</div>
+                <div class="eula">Tabla <%= tablaNombre %></div> 
+            </div>
+
+            <div class="right">
+                <div class="form">
+                    <form action="/insertarRegistro" method="POST">
+                        <input type="hidden" name="baseNombre" value="<%= baseNombre %>">
+                        <input type="hidden" name="tablaNombre" value="<%= tablaNombre %>">
+                        <% columnas.forEach(columna => { %>
+                            <label for="<%= columna %>"><%= columna %>:</label>
+                            <input type="text" id="<%= columna %>" name="<%= columna %>" required>
+                            <br>
+                        <% }) %>
+                        <button type="submit">Insertar</button>
+                        
+                    <a href="/verTablas?baseNombre=<%= baseNombre %>" class="botonLink">Volver a la tabla</a>
+                    </form>
+                </div>
+            </div>
+        
+                
+
+            
+        </div>
+    </div>
+    <%- include("templates/pie")%>

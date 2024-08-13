@@ -1,0 +1,65 @@
+<%- include("templates/encabezado")%>
+    <title>Ver Tablas</title>
+    <div class="page">
+        <div class="containerTablas">
+            <h1>Base de Datos: <%= baseNombre %></h1>
+            <form action="/crearTabla/<%= baseNombre %>" method="get" style="margin-top: 20px;">
+                <a href="/listarBases" class="botonLink">Regresar</a>
+                <button type="submit">Crear Tabla</button>
+            </form>
+            <% tablasDetalles.forEach(({ tablaNombre, columnas, registros }) => { %>
+                <div class="table-container">
+                <h2><%= tablaNombre %></h2>
+                
+                    <table>
+                        <thead>
+                            <tr>
+                                <% columnas.forEach(columna => { %>
+                                    <th><%= columna %></th>
+                                <% }) %>
+                                <th>Funciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% registros.forEach(registro => { %>
+                                <tr>
+                                    <% columnas.forEach(columna => { %>
+                                        <td><%= registro[columna] %></td>
+                                    <% }) %>
+                                    <td>
+                                        <!-- Botón para eliminar registro -->
+                                        <form action="/eliminarRegistro" method="POST" style="display: inline;">
+                                            <input type="hidden" name="baseNombre" value="<%= baseNombre %>">
+                                            <input type="hidden" name="tablaNombre" value="<%= tablaNombre %>">
+                                            <% columnas.forEach(columna => { %>
+                                                <input type="hidden" name="<%= columna %>" value="<%= registro[columna] %>">
+                                            <% }) %>
+                                            <button type="submit" id="eliminar">Eliminar</button>
+                                        </form>
+                                        <form action="/modificarRegistroForm" method="GET" style="display: inline;">
+                                            <input type="hidden" name="baseNombre" value="<%= baseNombre %>">
+                                            <input type="hidden" name="tablaNombre" value="<%= tablaNombre %>">
+                                            <% columnas.forEach(columna => { %>
+                                                <input type="hidden" name="<%= columna %>" value="<%= registro[columna] %>">
+                                            <% }) %>
+                                            <button type="submit">Modificar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Botón para insertar registro -->
+                <a href="/insertarRegistroForm?baseNombre=<%= baseNombre %>&tablaNombre=<%= tablaNombre %>" class="botonLink">Insertar Registro</a>
+                <form action="/eliminarTabla" method="POST" style="display: inline;">
+                    <input type="hidden" name="baseNombre" value="<%= baseNombre %>">
+                    <input type="hidden" name="tablaNombre" value="<%= tablaNombre %>">
+                    <button type="submit" id="eliminar">Eliminar Tabla</button>
+                </form>
+            <% }) %>
+        </div>
+    </div>
+    
+    <%- include("templates/pie")%>

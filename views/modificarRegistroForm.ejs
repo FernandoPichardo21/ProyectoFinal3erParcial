@@ -1,0 +1,30 @@
+<%- include("templates/encabezado")%>
+    <title>Modificar Registro</title>
+    <div class="page">
+        <div class="container">
+            <div class="left">
+                <div class="login">Modificar registros</div>
+                <div class="eula">Tabla <%= tablaNombre %></div> 
+            </div>
+            
+            <div class="right">
+                <div class="form">
+                    <form action="/modificarRegistro" method="POST">
+                        <input type="hidden" name="baseNombre" value="<%= baseNombre %>">
+                        <input type="hidden" name="tablaNombre" value="<%= tablaNombre %>">
+                        <% for (let campo in datosRegistro) { %>
+                            <div>
+                                <label for="<%= campo %>"><%= campo %></label>
+                                <input type="text" name="<%= campo %>" id="<%= campo %>" value="<%= datosRegistro[campo] %>" required>
+                            </div>
+                        <% } %>
+                        <button type="submit">Modificar</button>
+                        <a href="/verTablas?baseNombre=<%= baseNombre %>" class="botonLink">Volver atras</a>
+                    </form>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <%- include("templates/pie")%>

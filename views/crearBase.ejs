@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/web/js/crearBase.js" defer></script>
+    <title>Crear Base de Datos</title>
+</head>
+<body>
+<div class="page">
+    <div class="container">
+        <div class="left">
+            <div class="login">Generar base de datos</div>
+            <div class="eula">Nombre de la base de datos</div>
+        </div>
+        <div class="right">
+            <div class="form">
+                <form id="formularioCrearBase" action="/crearBase" method="POST">
+                    <label for="nombreBase">Nombre de la base de datos</label>
+                    <input type="text" id="nombreBase" name="nombreBase" required>
+                    <div class="boton">
+                        <button type="submit">Crear base de datos</button>
+                        <a href="/" class="botonLink">Volver</a>
+                    </div>
+                </form>
+                <div class="mensajeNombreBase ocultar">Nombre inválido</div>
+                <i class="fa-solid fa-circle-check circleCheckNombreBase ocultar"></i>
+                <i class="fa-solid fa-circle-xmark circleCrossNombreBase ocultar"></i>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<%- include("templates/encabezado")%>
+    <title>Generar campos</title>
+<div class="page">
+    <div class="container">
+        <div class="left">
+            <div class="login">Generar campos</div>
+            <div class="eula">Tabla <%= nombreTabla %></div>
+        </div>
+        <div class="right">
+            <form id="formGenerarCampos" action="/crearTabla" method="POST" onsubmit="prepareData()">
+                <input type="hidden" name="nombreTabla" value="<%= nombreTabla %>">
+                <input type="hidden" id="numeroCampos" value="<%= numeroCampos %>">
+                <input type="hidden" id="campos" name="campos">
+                
+                <div id="camposContainer">
+                    <% for (let i = 0; i < numeroCampos; i++) { %>
+                        <div>
+                            <label for="nombreCampo<%= i %>">Nombre del Campo:</label>
+                            <input type="text" id="nombreCampo<%= i %>" name="nombreCampo<%= i %>" required>
+                            
+                            <label for="tipoCampo<%= i %>">Tipo de Dato:</label>
+                            <select id="tipoCampo<%= i %>" name="tipoCampo<%= i %>" required>
+                                <option value="INT">INT</option>
+                                <option value="VARCHAR">VARCHAR</option>
+                                <!-- Añade más tipos según sea necesario -->
+                            </select>
+            
+                            <label for="longitudCampo<%= i %>">Longitud:</label>
+                            <input type="number" id="longitudCampo<%= i %>" name="longitudCampo<%= i %>">
+                            
+                            <label for="primaryKey<%= i %>">Primary Key:</label>
+                            <input type="checkbox" id="primaryKey<%= i %>" name="primaryKey<%= i %>">
+                        </div>
+                    <% } %>
+                </div>
+                
+                <button type="submit">Crear Tabla</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function prepareData() {
+    const numeroCampos = document.getElementById('numeroCampos').value;
+    let campos = [];
+
+    for (let i = 0; i < numeroCampos; i++) {
+        const nombreCampo = document.getElementById(`nombreCampo${i}`).value;
+        const tipoCampo = document.getElementById(`tipoCampo${i}`).value;
+        const longitudCampo = document.getElementById(`longitudCampo${i}`).value;
+        const esPrimaryKey = document.getElementById(`primaryKey${i}`).checked;
+
+        campos.push({
+            nombre: nombreCampo,
+            tipo: tipoCampo,
+            longitud: tipoCampo === 'VARCHAR' ? longitudCampo : null,
+            primaryKey: esPrimaryKey
+        });
+    }
+
+    document.getElementById('campos').value = JSON.stringify(campos);
+}
+
+</script>
+
+<%- include("templates/pie")%>

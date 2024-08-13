@@ -1,0 +1,33 @@
+<%- include("templates/encabezado")%>
+     <title>Listar Bases de Datos</title>
+    <h1>Bases de Datos Existentes</h1>
+    <a href="/" class="botonLink">Volver al inicio</a>
+    <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre de la Base de Datos</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bases.forEach(base => { %>
+                        <tr>
+                            <td><%= base %></td>
+                            <td>
+                                <form action="/verTablas" method="GET">
+                                    <input type="hidden" name="baseNombre" value="<%= base %>">
+                                    <button type="submit">Ver Tablas</button>
+                                </form>
+                                <form action="/eliminarBase" method="POST" style="display:inline;">
+                                    <input type="hidden" name="baseDatos" value="<%= base %>">
+                                    
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <%- include("templates/pie")%>
